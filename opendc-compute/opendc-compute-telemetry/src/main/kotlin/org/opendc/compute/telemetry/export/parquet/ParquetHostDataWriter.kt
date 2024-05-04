@@ -148,27 +148,31 @@ public class ParquetHostDataWriter(path: File, bufferSize: Int) :
             consumer.addDouble(data.energyUsage)
             consumer.endField("energy_usage", 18)
 
-            consumer.startField("carbon_intensity", 19)
+            consumer.startField("thermal_power", 19)
+            consumer.addDouble(data.thermalPower)
+            consumer.endField("thermal_power", 19)
+
+            consumer.startField("carbon_intensity", 20)
             consumer.addDouble(data.carbonIntensity)
-            consumer.endField("carbon_intensity", 19)
+            consumer.endField("carbon_intensity", 20)
 
-            consumer.startField("carbon_emission", 20)
+            consumer.startField("carbon_emission", 21)
             consumer.addDouble(data.carbonEmission)
-            consumer.endField("carbon_emission", 20)
+            consumer.endField("carbon_emission", 21)
 
-            consumer.startField("uptime", 21)
+            consumer.startField("uptime", 22)
             consumer.addLong(data.uptime)
-            consumer.endField("uptime", 21)
+            consumer.endField("uptime", 22)
 
-            consumer.startField("downtime", 22)
+            consumer.startField("downtime", 23)
             consumer.addLong(data.downtime)
-            consumer.endField("downtime", 22)
+            consumer.endField("downtime", 23)
 
             val bootTime = data.bootTime
             if (bootTime != null) {
-                consumer.startField("boot_time", 23)
+                consumer.startField("boot_time", 24)
                 consumer.addLong(bootTime.toEpochMilli())
-                consumer.endField("boot_time", 23)
+                consumer.endField("boot_time", 24)
             }
 
             consumer.endMessage()
@@ -241,6 +245,9 @@ public class ParquetHostDataWriter(path: File, bufferSize: Int) :
                     Types
                         .required(PrimitiveType.PrimitiveTypeName.DOUBLE)
                         .named("energy_usage"),
+                    Types
+                        .required(PrimitiveType.PrimitiveTypeName.DOUBLE)
+                        .named("thermal_power"),
                     Types
                         .required(PrimitiveType.PrimitiveTypeName.DOUBLE)
                         .named("carbon_intensity"),
